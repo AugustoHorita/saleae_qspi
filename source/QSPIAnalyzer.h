@@ -20,12 +20,9 @@ public:
 	virtual const char* GetAnalyzerName() const;
 	virtual bool NeedsRerun();
 
-#pragma warning( push )
-#pragma warning( disable : 4251 ) //warning C4251: 'SerialAnalyzer::<...>' : class <...> needs to have dll-interface to be used by clients of class
-
 protected: //vars
-	std::auto_ptr< QSPIAnalyzerSettings > mSettings;
-	std::auto_ptr< QSPIAnalyzerResults > mResults;
+	std::unique_ptr<QSPIAnalyzerSettings> mSettings;
+	std::unique_ptr<QSPIAnalyzerResults> mResults;
 	bool mSimulationInitilized;
 	QSPISimulationDataGenerator mSimulationDataGenerator;
 
@@ -46,8 +43,6 @@ protected: //vars
 		U64 data;
 	};
 
-#pragma warning( pop )
-
 protected: //functions
 	void Setup();
 	void AdvanceToActiveEnableEdge();
@@ -62,8 +57,6 @@ protected: //functions
 	ParseResult GetAddress(U64 AddressLineMask);
 	ParseResult GetDummy();
 	ParseResult GetData(U64 DataLineMask);
-
-
 };
 
 extern "C" ANALYZER_EXPORT const char* __cdecl GetAnalyzerName();

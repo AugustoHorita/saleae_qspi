@@ -17,7 +17,7 @@ QSPIAnalyzerResults::~QSPIAnalyzerResults()
 {
 }
 
-void QSPIAnalyzerResults::GenerateBubbleText( U64 frame_index, Channel& channel, DisplayBase display_base )
+void QSPIAnalyzerResults::GenerateBubbleText( U64 frame_index, __attribute__((unused)) Channel& channel, DisplayBase display_base )
 {
 
 	ClearResultStrings();
@@ -25,71 +25,79 @@ void QSPIAnalyzerResults::GenerateBubbleText( U64 frame_index, Channel& channel,
 
 	switch (frame.mType)
 	{
-	case FrameTypeCommand:
+		case FrameTypeCommand:
 		{
-		char number_str[128];
-		AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
+			char number_str[128];
+			AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
 
-		AddResultString(number_str);
+			AddResultString(number_str);
 
-		std::stringstream ss;
-		ss << "Cmd: " << number_str;
-		AddResultString(ss.str().c_str());
-		ss.str("");
+			std::stringstream ss;
+			ss << "Cmd: " << number_str;
+			AddResultString(ss.str().c_str());
+			ss.str("");
 
-		ss << "Command: " << number_str << " " << GetQSPICommandAttr(frame.mData1).CommandName;
-		AddResultString(ss.str().c_str());
+			ss << "Command: " << number_str << " " << GetQSPICommandAttr(frame.mData1).CommandName;
+			AddResultString(ss.str().c_str());
+
+			break;
 		}
-		break;
-	case FrameTypeAddress:
-	{
-		char number_str[128];
-		AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
 
-		AddResultString(number_str);
+		case FrameTypeAddress:
+		{
+			char number_str[128];
+			AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
 
-		std::stringstream ss;
-		ss << "Addr: " << number_str;
-		AddResultString(ss.str().c_str());
-		ss.str("");
+			AddResultString(number_str);
 
-		ss << "Address: " << number_str;
-		AddResultString(ss.str().c_str());
+			std::stringstream ss;
+			ss << "Addr: " << number_str;
+			AddResultString(ss.str().c_str());
+			ss.str("");
+
+			ss << "Address: " << number_str;
+			AddResultString(ss.str().c_str());
+
+			break;
+		}
+
+		case FrameTypeDummy:
+		{
+			std::stringstream ss;
+			ss << "Dummy";
+			AddResultString(ss.str().c_str());
+			ss.str("");
+
+			ss << "Dummy Cycles";
+			AddResultString(ss.str().c_str());
+
+			break;
+		}
+
+		case FrameTypeData:
+		{
+			char number_str[128];
+			AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
+
+			AddResultString(number_str);
+
+			std::stringstream ss;
+			ss << "Data: " << number_str;
+			AddResultString(ss.str().c_str());
+			ss.str("");
+
+			ss << "Data: " << number_str;
+			AddResultString(ss.str().c_str());
+
+			break;
+		}
+
+		default:
+			break;
 	}
-	case FrameTypeDummy:
-	{
-		std::stringstream ss;
-		ss << "Dummy";
-		AddResultString(ss.str().c_str());
-		ss.str("");
-
-		ss << "Dummy Cycles";
-		AddResultString(ss.str().c_str());
-	}
-	case FrameTypeData:
-	{
-		char number_str[128];
-		AnalyzerHelpers::GetNumberString(frame.mData1, display_base, 8, number_str, 128);
-
-		AddResultString(number_str);
-
-		std::stringstream ss;
-		ss << "Data: " << number_str;
-		AddResultString(ss.str().c_str());
-		ss.str("");
-
-		ss << "Data: " << number_str;
-		AddResultString(ss.str().c_str());
-	}
-	break;
-
-	default:
-		break;
-	}
-
 }
 
-void QSPIAnalyzerResults::GenerateExportFile( const char* file, DisplayBase display_base, U32 export_type_user_id )
+void QSPIAnalyzerResults::GenerateExportFile( const char* file, DisplayBase display_base, __attribute__((unused)) U32 export_type_user_id )
 {
 	std::stringstream ss;
 
@@ -104,7 +112,7 @@ void QSPIAnalyzerResults::GenerateExportFile( const char* file, DisplayBase disp
 	for( U32 i=0; i < num_frames; i++ )
 	{
 		Frame frame = GetFrame( i );
-		
+
 		char time_str[128];
 		AnalyzerHelpers::GetTimeString( frame.mStartingSampleInclusive, trigger_sample, sample_rate, time_str, 128 );
 
@@ -131,7 +139,7 @@ void QSPIAnalyzerResults::GenerateFrameTabularText( U64 frame_index, DisplayBase
 {
 	ClearTabularText();
 	Frame frame = GetFrame( frame_index );
-	
+
 	switch (frame.mType)
 	{
 	case FrameTypeCommand:
@@ -182,13 +190,13 @@ void QSPIAnalyzerResults::GenerateFrameTabularText( U64 frame_index, DisplayBase
 
 }
 
-void QSPIAnalyzerResults::GeneratePacketTabularText( U64 packet_id, DisplayBase display_base )
+void QSPIAnalyzerResults::GeneratePacketTabularText( __attribute__((unused)) U64 packet_id, __attribute__((unused))  DisplayBase display_base )
 {
 	ClearResultStrings();
 	AddResultString( "not supported" );
 }
 
-void QSPIAnalyzerResults::GenerateTransactionTabularText( U64 transaction_id, DisplayBase display_base )
+void QSPIAnalyzerResults::GenerateTransactionTabularText( __attribute__((unused))  U64 transaction_id, __attribute__((unused))  DisplayBase display_base )
 {
 	ClearResultStrings();
 	AddResultString( "not supported" );

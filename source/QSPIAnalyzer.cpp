@@ -226,7 +226,7 @@ void QSPIAnalyzer::GetFrame()
 		case 3: currentAddress = GetAddress(0x0F); //Quad mode
 			break;
 		}
-		
+
 
 		if(IsParseResultError(currentAddress)) {
             return;
@@ -346,13 +346,13 @@ QSPIAnalyzer::ParseResult QSPIAnalyzer::GetData(U64 DataLineMask)
 	// determine number of clock cycles needed
 
 	int lines_used = 0;
-	for (U32 i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (DataLineMask >> i & 0x01) {
 			lines_used++;
 		}
 	}
 
-	for (U32 i = 0; i<(8/lines_used); i++)
+	for (int i = 0; i < (8 / lines_used); i++)
 	{
 		//on every single edge, we need to check that enable doesn't toggle.
 		//note that we can't just advance the enable line to the next edge, becuase there may not be another edge
@@ -512,17 +512,17 @@ QSPIAnalyzer::ParseResult QSPIAnalyzer::GetCommand(U64 CommandLineMask)
 
 	U64 first_sample = 0;
 	//bool need_reset = false;
-	
+
 	// determine number of clock cycles needed
 	int lines_used = 0;
-	for (U32 i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (CommandLineMask >> i & 0x01) {
 			lines_used++;
 		}
 	}
 
-	
-	for (U32 i = 0; i<(8 / lines_used); i++)
+
+	for (int i = 0; i < (8 / lines_used); i++)
 	{
 		//on every single edge, we need to check that enable doesn't toggle.
 		//note that we can't just advance the enable line to the next edge, becuase there may not be another edge

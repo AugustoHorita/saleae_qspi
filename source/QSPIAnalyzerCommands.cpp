@@ -21,6 +21,7 @@ void QSPIMakeCommandList() {
 	qspi_cmds[0x06] = { false,false,false,false,0x00,0x00,"Write Enable" };
 	qspi_cmds[0x04] = { false,false,false,false,0x00,0x00,"Write Disable" };
 	qspi_cmds[0x05] = { false,false,true,false,0x00,0x02,"Read Status Reg" };
+	qspi_cmds[0x15] = { false,false,true,false,0x00,0x02,"Read Config Reg" };
 	qspi_cmds[0x01] = { false,false,true,true,0x00,0x01,"Write Status Reg" };
 	qspi_cmds[0xE8] = { true,false,true,false,0x01,0x02,"Read Lock Reg" };
 	qspi_cmds[0xE5] = { true,false,true,true,0x01,0x01,"Write Lock Reg" };
@@ -38,6 +39,7 @@ void QSPIMakeCommandList() {
 	qspi_cmds[0x32] = { true,false,true,true,0x01,0x0F,"Quad Input Fast Pgm" };
 	qspi_cmds[0x12] = { true,false,true,true,0x0F,0x0F,"Ext Quad Input Fast Pgm" };
 	qspi_cmds[0x20] = { true,false,false,false,0x01,0x00,"Subsector Erase" };
+	qspi_cmds[0x21] = { true,false,false,false,0x0F,0x00,"Subsector Erase (4 Addr.)" };
 	qspi_cmds[0xD8] = { true,false,false,false,0x01,0x00,"Sector Erase" };
 	qspi_cmds[0xC7] = { false,false,false,false,0x00,0x00,"Bulk Erase" };
 	qspi_cmds[0x7A] = { false,false,false,false,0x00,0x00,"Pgm/Erase Resume" };
@@ -46,7 +48,8 @@ void QSPIMakeCommandList() {
 	qspi_cmds[0x42] = { true,false,true,true,0x01,0x01,"Pgm OTP Array" };
 	qspi_cmds[0xB9] = { false,false,false,false,0x00,0x00,"Deep Power-Down" };
 	qspi_cmds[0xAB] = { false,false,false,false,0x00,0x00,"Release From DPD" };
-
+	qspi_cmds[0xEC] = { true,true,true,false,0x0F,0x0F,"Quad Read (4 Addr.)" };
+	qspi_cmds[0x3E] = { true,false,true,true,0x0F,0x0F,"Quad Pgm. (4 Addr.)" };
 
 	qspi_cmds[0xFE] = { false,false,false,false,0x00,0x00,"ERROR, the world is about to end" };
 }

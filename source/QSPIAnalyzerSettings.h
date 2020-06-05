@@ -29,16 +29,16 @@ public:
 
 
 protected:
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mEnableChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mClockChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mDQ0ChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mDQ1ChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mDQ2ChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceChannel >	mDQ3ChannelInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceNumberList >	mClockInactiveStateInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceNumberList >	mModeStateInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceNumberList >	mDummyCyclesInterface;
-	std::auto_ptr< AnalyzerSettingInterfaceNumberList >	mAddressSizeInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mEnableChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mClockChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mDQ0ChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mDQ1ChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mDQ2ChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceChannel>	mDQ3ChannelInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceNumberList>	mClockInactiveStateInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceNumberList>	mModeStateInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceNumberList>	mDummyCyclesInterface;
+	std::unique_ptr<AnalyzerSettingInterfaceNumberList>	mAddressSizeInterface;
 
 };
 

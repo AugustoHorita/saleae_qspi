@@ -72,8 +72,11 @@ QSPIAnalyzerSettings::QSPIAnalyzerSettings()
 
 	mAddressSizeInterface.reset(new AnalyzerSettingInterfaceNumberList());
 	mAddressSizeInterface->SetTitleAndTooltip("Address Size (bytes)", "");
-	mAddressSizeInterface->AddNumber(3, "Three", "three byte addresses");
-	mAddressSizeInterface->AddNumber(4, "Four", "four byte addresses");
+	mAddressSizeInterface->AddNumber(0, "None", "None byte address");
+	mAddressSizeInterface->AddNumber(1, "One", "One byte address");
+	mAddressSizeInterface->AddNumber(2, "Two", "Two byte addresses");
+	mAddressSizeInterface->AddNumber(3, "Three", "Three byte addresses");
+	mAddressSizeInterface->AddNumber(4, "Four", "Four byte addresses");
 	mAddressSizeInterface->SetNumber(mAddressSize);
 
 
@@ -173,11 +176,19 @@ void QSPIAnalyzerSettings::UpdateInterfacesFromSettings()
 	mAddressSizeInterface->SetNumber(mAddressSize);
 }
 
+bool operator>>(SimpleArchive& archive, BitState& state)
+{
+	U32 value = 0;
+	archive >> value;
+	state = static_cast<BitState>(value);
+
+	return true;
+}
+
 void QSPIAnalyzerSettings::LoadSettings( const char* settings )
 {
 	SimpleArchive text_archive;
-	text_archive.SetString( settings );
-
+	text_archive.SetString(settings);
 
 	text_archive >> mEnableChannel;
 	text_archive >> mClockChannel;
@@ -185,10 +196,10 @@ void QSPIAnalyzerSettings::LoadSettings( const char* settings )
 	text_archive >> mDQ1Channel;
 	text_archive >> mDQ2Channel;
 	text_archive >> mDQ3Channel;
-	text_archive >> *(U32*)&mClockInactiveState;
-	text_archive >> *(U32*)&mModeState;
-	text_archive >> *(U32*)&mDummyCycles;
-	text_archive >> *(U32*)&mAddressSize;
+	text_archive >> mClockInactiveState;
+	text_archive >> mModeState;
+	text_archive >> mDummyCycles;
+	text_archive >> mAddressSize;
 
 	ClearChannels();
 	AddChannel(mEnableChannel, "ENABLE", mEnableChannel != UNDEFINED_CHANNEL);
