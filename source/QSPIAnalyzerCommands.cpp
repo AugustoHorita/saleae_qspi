@@ -38,6 +38,7 @@ void QSPIMakeCommandList() {
 	qspi_cmds[0xD2] = { true,false,true,true,0x03,0x03,"Ext Dual Input Fast Pgm" };
 	qspi_cmds[0x32] = { true,false,true,true,0x01,0x0F,"Quad Input Fast Pgm" };
 	qspi_cmds[0x12] = { true,false,true,true,0x0F,0x0F,"Ext Quad Input Fast Pgm" };
+	qspi_cmds[0x38] = { true,false,true,true,0x0F,0x0F,"Quad Input Pgm" };
 	qspi_cmds[0x20] = { true,false,false,false,0x01,0x00,"Subsector Erase" };
 	qspi_cmds[0x21] = { true,false,false,false,0x0F,0x00,"Subsector Erase (4 Addr.)" };
 	qspi_cmds[0xD8] = { true,false,false,false,0x01,0x00,"Sector Erase" };
@@ -51,7 +52,7 @@ void QSPIMakeCommandList() {
 	qspi_cmds[0xEC] = { true,true,true,false,0x0F,0x0F,"Quad Read (4 Addr.)" };
 	qspi_cmds[0x3E] = { true,false,true,true,0x0F,0x0F,"Quad Pgm. (4 Addr.)" };
 
-	qspi_cmds[0xFE] = { false,false,false,false,0x00,0x00,"ERROR, the world is about to end" };
+	qspi_cmds[0xFE] = { false,false,false,false,0x00,0x00,"Unknown command" };
 }
 
 U64 GetQSPICommand(U64 index)
